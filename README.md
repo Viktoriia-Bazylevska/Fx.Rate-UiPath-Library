@@ -26,7 +26,7 @@ Use it in any process that works with foreign currencies: invoices, purchase ord
 
 - **Same currency** (e.g. EUR → EUR): returns rate `1` without calling the API.
 - **Validation:** codes must be 3 letters and the date must not be in the future; otherwise it fails with "Invalid input" and makes no API call.
-- **Retries:** up to 3 attempts, 2 seconds apart, for 5xx errors and timeouts only. 4xx errors are not retried.
+- **Retries:** a Retry Scope with `NumberOfRetries = 3` and a 2-second interval; the HTTP request times out after 10 seconds. Only timeouts and HTTP 5xx are retried. 4xx errors (including 404 and 422) and other transport errors are handled without retry.
 - **The activity never throws.** Always check `out_Success` and `out_ErrorMessage`:
 
 | Message | Cause |
@@ -42,11 +42,11 @@ Use it in any process that works with foreign currencies: invoices, purchase ord
 
 Low-code: add **Get Exchange Rate**, set `in_BaseCurrency = "USD"`, `in_QuoteCurrency = "EUR"`, `in_RateDate = New DateTime(2026, 11, 3)`, then use an **If** on `out_Success`.
 
-The process project in this repo (`ConvertExpenseClaim.cs`) shows how to call it from a C# coded workflow.
+Coded (C#): once the package is installed, call it as `fXRates.GetExchangeRate(...)`. See `ConvertExpenseClaim.cs` in the process project for a full example.
 
 ## Requirements
 
-- UiPath Studio STS 2026.0.199 or later; cross-platform library
+- UiPath Studio 26.10 or later
 - Internet access to `api.frankfurter.dev` from the robot
 
 ## Version history
@@ -55,6 +55,11 @@ The process project in this repo (`ConvertExpenseClaim.cs`) shows how to call it
 | --- | --- |
 | 1.0.0 | First release, exported from the ExpenseClaimConverter project |
 | 1.0.2 | Removed `ConvertExpenseClaim`, which was included by the export; library now contains only `GetExchangeRate` |
+
+## Known issues
+
+- Version 1.0.2 still contains helper types (`ExpenseCalculator`, `ExpenseLine` and others) from the original project. A consumer project with types of the same name gets CS0436 warnings. These will be removed in a later version.
+- Connection errors other than timeouts (e.g. DNS or connection reset) are not retried.
 
 ## Notes
 

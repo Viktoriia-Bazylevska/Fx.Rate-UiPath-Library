@@ -54,7 +54,7 @@ The process project in this repo (`ConvertExpenseClaim.cs`) shows how to call it
 | Version | Changes |
 | --- | --- |
 | 1.0.0 | First release, exported from the ExpenseClaimConverter project |
-| 1.0.1 | Removed `ConvertExpenseClaim`, which was included by the export; library now contains only `GetExchangeRate` |
+| 1.0.2 | Removed `ConvertExpenseClaim`, which was included by the export; library now contains only `GetExchangeRate` |
 
 ## Notes
 

@@ -1,0 +1,6 @@
+{
+  "Name": "FX.Rates",
+  "ProjectType": "Library",
+  "Description": "FX.Rates",
+  "MainFile": "NewActivity.xaml"
+}

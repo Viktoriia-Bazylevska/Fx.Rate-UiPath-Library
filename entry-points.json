@@ -1,0 +1,31 @@
+{
+  "$schema": "https://cloud.uipath.com/draft/2024-12/entry-point",
+  "entryPoints": [
+    {
+      "filePath": "ConvertExpenseClaim.cs",
+      "uniqueId": "d53b4c5a-f08d-4a5d-90ba-a6ec386c18fa",
+      "type": "process",
+      "input": {
+        "type": "object",
+        "properties": {
+          "in_InputPath": {
+            "type": "string"
+          },
+          "in_OutputPath": {
+            "type": "string"
+          },
+          "in_TargetCurrency": {
+            "type": "string",
+            "x-default-expression": "\"EUR\"",
+            "default": "EUR"
+          }
+        },
+        "required": [
+          "in_InputPath",
+          "in_OutputPath",
+          "in_TargetCurrency"
+        ]
+      }
+    }
+  ]
+}
